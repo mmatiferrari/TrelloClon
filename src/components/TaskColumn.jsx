@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import TaskCard from './TaskCard';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const TaskColumn = ({ id, initialTitle, tasks, onAddTask, onUpdateTitle, onDeleteTask }) => {
+const TaskColumn = ({ id, initialTitle, tasks, onAddTask, onUpdateTitle, onDeleteTask, onViewTasks, onDeleteColumn }) => {
   const [title, setTitle] = useState(initialTitle);
   const [editingTitle, setEditingTitle] = useState(false);
   const [newTaskContent, setNewTaskContent] = useState('');
@@ -55,7 +55,7 @@ const TaskColumn = ({ id, initialTitle, tasks, onAddTask, onUpdateTitle, onDelet
           <TaskCard 
             key={task.id}
             content={task.content}
-            onDeleteTask={() => handleDeleteTask(task.id)} // Pasa el id de la tarea, no el id de la columna
+            onDeleteTask={() => handleDeleteTask(task.id)}
           />
         ))}
         <TextField
@@ -69,18 +69,26 @@ const TaskColumn = ({ id, initialTitle, tasks, onAddTask, onUpdateTitle, onDelet
         <Button variant="contained" color="primary" onClick={handleAddTaskClick}>
           Add Task
         </Button>
+        <Button variant="contained" color="secondary" onClick={onDeleteColumn}>
+          Delete Column {/* Botón para eliminar la columna */}
+        </Button>
+        <Button variant="contained" color="primary" onClick={onViewTasks}>
+          View Tasks
+        </Button>
       </Paper>
     </Grid>
   );
 };
 
 TaskColumn.propTypes = {
-  id: PropTypes.number.isRequired, // id requerido y debe ser un número
-  initialTitle: PropTypes.string.isRequired, // initialTitle requerido y debe ser una cadena
-  tasks: PropTypes.array.isRequired, // tasks requerido y debe ser un array
-  onAddTask: PropTypes.func.isRequired, // onAddTask requerido y debe ser una función
-  onUpdateTitle: PropTypes.func.isRequired, // onUpdateTitle requerido y debe ser una función
-  onDeleteTask: PropTypes.func.isRequired, // onDeleteTask requerido y debe ser una función
+  id: PropTypes.number.isRequired,
+  initialTitle: PropTypes.string.isRequired,
+  tasks: PropTypes.array.isRequired,
+  onAddTask: PropTypes.func.isRequired,
+  onUpdateTitle: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
+  onViewTasks: PropTypes.func.isRequired,
+  onDeleteColumn: PropTypes.func.isRequired, // PropTypes para la nueva función onDeleteColumn
 };
 
 export default TaskColumn;
