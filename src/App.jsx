@@ -17,15 +17,45 @@ const App = () => {
   const [selectedColumn, setSelectedColumn] = useState(null);
 
   const handleAddTask = (columnId, newTaskContent) => {
-    // Implementación de handleAddTask
+    setColumns(prevColumns => {
+      return prevColumns.map(column => {
+        if (column.id === columnId) {
+          return {
+            ...column,
+            tasks: [...column.tasks, { id: Date.now(), content: newTaskContent }]
+          };
+        }
+        return column;
+      });
+    });
   };
 
   const handleUpdateTitle = (columnId, newTitle) => {
-    // Implementación de handleUpdateTitle
+    setColumns(prevColumns => {
+      return prevColumns.map(column => {
+        if (column.id === columnId) {
+          return {
+            ...column,
+            title: newTitle
+          };
+        }
+        return column;
+      });
+    });
   };
   
   const handleDeleteTask = (columnId, taskId) => {
-    // Implementación de handleDeleteTask
+    setColumns(prevColumns => {
+      return prevColumns.map(column => {
+        if (column.id === columnId) {
+          return {
+            ...column,
+            tasks: column.tasks.filter(task => task.id !== taskId)
+          };
+        }
+        return column;
+      });
+    });
   };
 
   const handleAddColumn = () => {
