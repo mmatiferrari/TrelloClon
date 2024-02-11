@@ -92,9 +92,9 @@ const App = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1>My Trello Clone</h1>
-      <Grid container spacing={3} justifyContent="center"> {/* Alinea las columnas en el centro */}
-        {columns.map(column => (
-          <Grid item key={column.id}>
+      <Grid container spacing={3} >
+            {columns.map(column => (
+          <Grid item xs={4} key={column.id}> {/* Define el ancho de cada columna. Aquí xs={4} significa que cada columna ocupará 4 de las 12 columnas en dispositivos pequeños */}
             <TaskColumn
               id={column.id}
               initialTitle={column.title.toString()}
