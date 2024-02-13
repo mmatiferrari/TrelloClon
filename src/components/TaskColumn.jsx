@@ -37,7 +37,7 @@ const TaskColumn = ({ id, initialTitle, tasks, onAddTask, onUpdateTitle, onDelet
   };
 
   return (
-    <Grid item xs={3}>
+    <Grid item xs={3} sx={{ minWidth: '300px' }}>
       <Paper style={{ padding: '10px' }}>
         {editingTitle ? (
           <TextField

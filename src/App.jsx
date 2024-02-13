@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@mui/material';
 import TaskColumn from './components/TaskColumn';
 import ColumnTasksModal from './components/ColumnTasksModal';
 import { loadFromLocalStorage, saveToLocalStorage } from './utils/localStorageHelpers';
@@ -90,27 +90,25 @@ const App = () => {
   }, [columns]);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px', overflowX: 'auto' }}>
       <h1>My Trello Clone</h1>
-      <Grid container spacing={3} >
-            {columns.map(column => (
-          <Grid item xs={4} key={column.id}> {/* Define el ancho de cada columna. Aquí xs={4} significa que cada columna ocupará 4 de las 12 columnas en dispositivos pequeños */}
-            <TaskColumn
-              id={column.id}
-              initialTitle={column.title.toString()}
-              tasks={column.tasks}
-              onAddTask={(newTaskContent) => handleAddTask(column.id, newTaskContent)}
-              onUpdateTitle={(newTitle) => handleUpdateTitle(column.id, newTitle)}
-              onDeleteTask={(taskId) => handleDeleteTask(column.id, taskId)}
-              onViewTasks={() => handleViewTasks(column.id)}
-              onDeleteColumn={() => handleDeleteColumn(column.id)} // Pasar la función handleDeleteColumn
-            />
-          </Grid>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {columns.map(column => (
+          <TaskColumn
+            key={column.id}
+            id={column.id}
+            initialTitle={column.title.toString()}
+            tasks={column.tasks}
+            onAddTask={(newTaskContent) => handleAddTask(column.id, newTaskContent)}
+            onUpdateTitle={(newTitle) => handleUpdateTitle(column.id, newTitle)}
+            onDeleteTask={(taskId) => handleDeleteTask(column.id, taskId)}
+            onViewTasks={() => handleViewTasks(column.id)}
+            onDeleteColumn={() => handleDeleteColumn(column.id)} // Pasar la función handleDeleteColumn
+          />
         ))}
-        <Grid item>
-          <Button variant="contained" onClick={handleAddColumn}>+</Button>
-        </Grid>
-      </Grid>
+      </div>
+      
+      <Button variant="contained" onClick={handleAddColumn}>+</Button>
       
       {/* Diálogo para solicitar el título de la nueva columna */}
       <Dialog open={open} onClose={handleClose}>
